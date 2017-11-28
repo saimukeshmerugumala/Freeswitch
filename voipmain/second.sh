@@ -1,5 +1,6 @@
 #!/bin/bash
 systemctl stop firewalld
+echo -e "\e[2;32mFirewalld was disabled\e[0m"
 echo -e "\e[2;32mFreeswitch Installation\e[0m"
 yum install -y http://files.freeswitch.org/freeswitch-release-1-6.noarch.rpm epel-release -y
 echo -e "\e[2;32mCreated the epel repo\e[0m"
@@ -15,11 +16,11 @@ do
          break  
       fi
 done
-echo "Clonening and Copying the freeswitch source code to src directory"
+echo "\e[2;32mClonening and Copying the freeswitch source code to src directory\e[0m"
 file="./freeswitch"
 if [ -s "$file" ]
 then
-  echo "$file was present"
+  echo -e "\e[2;32m$file was present\e[0m"
 else
   git clone -b v1.6 https://freeswitch.org/stash/scm/fs/freeswitch.git freeswitch
 fi
@@ -72,8 +73,6 @@ do
       fi
 done
 cd /usr/local/src/freeswitch/
-make distclean
-rm config.cahce -y
 echo -e "\e[2;32m Now bootstrap will be done\e[0m"
 ./bootstrap.sh -j
 echo -e "\e[2;32m Bootstrap done\e[0m"
@@ -91,6 +90,8 @@ make cd-moh-install
 echo -e "\e[2;32m Sounds installation was finished\e[0m" 
 make CFLAGS='-lasound' mod_flite
 make CFLAGS='-lasound' mod_flite-install
+field="${default_password}" expression="^12345$"
+sed -i  's/field="${default_password}" expression="^1234$"/field="${default_password}" expression="^12345$"/g'  /usr/voip/etc/freeswitch/dialplan/default.xml /usr/voip/etc/freeswitch/dialplan/default.xml
 sed -i  's/name="listen-ip" value="::"/name="listen-ip" value="127.0.0.1"/g'  /usr/voip/etc/freeswitch/autoload_configs/event_socket.conf.xml /usr/voip/etc/freeswitch/autoload_configs/event_socket.conf.xml
 sed -i  's/*.xml"/internal.xml"/g'  /usr/voip/etc/freeswitch/autoload_configs/sofia.conf.xml /usr/voip/etc/freeswitch/autoload_configs/sofia.conf.xml
 echo -e "\e[2;32mEND OF THE Installation and Copying of files\e[0m"
@@ -106,6 +107,5 @@ read  -p 'Enter the IP for vars.xml: ' ip
   else
    echo -e "\e[2;32mplease enter the correct ip\e[0m"
   fi
-
 
 
