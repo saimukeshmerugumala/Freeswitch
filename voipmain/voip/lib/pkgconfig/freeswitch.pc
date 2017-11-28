@@ -1,0 +1,24 @@
+prefix=/usr/voip
+exec_prefix=/usr/voip
+libdir=/usr/voip/lib
+libexecdir=${exec_prefix}/libexec
+includedir=/usr/voip/include/freeswitch
+modulesdir=/usr/voip/lib/freeswitch/mod
+runtimedir=/usr/voip/var/run/freeswitch
+logfiledir=/usr/voip/var/log/freeswitch
+sysconfdir=${prefix}/etc
+confdir=/usr/voip/etc/freeswitch
+dbdir=/usr/voip/var/lib/freeswitch/db
+htdocsdir=/usr/voip/share/freeswitch/htdocs
+localstatedir=/usr/voip/var/lib/freeswitch
+grammardir=/usr/voip/share/freeswitch/grammar
+soundsdir=/usr/voip/share/freeswitch/sounds
+scriptdir=/usr/voip/share/freeswitch/scripts
+recordingsdir=/usr/voip/var/lib/freeswitch/recordings
+bindir=${exec_prefix}/bin
+
+Name: freeswitch
+Version: 1.6.19
+Description: FreeSWITCH open source telephony platform
+Libs: -L${libdir} -lfreeswitch
+Cflags: -I${includedir}

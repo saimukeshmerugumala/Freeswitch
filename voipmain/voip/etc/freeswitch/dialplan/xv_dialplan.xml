@@ -1,0 +1,27 @@
+<?xml version = "1.0" encoding="UTF-8" standalone="no"?>
+<include>
+   <context name="AJR">
+       <extension name="outbound_all">
+         <condition field="destination_number" expression="^(\+?)(\d+)$">
+           <action application="set" data="fail_on_single_reject=^^:CALL_REJECTED:NORMAL_CLEARING:USER_BUSY"/>
+           <!--
+                           <action application="set" data="fail_on_single_reject=true"/>
+           <action application="set" data="sip_secure_media=true"/>
+           <action application='set' data="media_webrtc=true"/>
+           <action application='export' data="media_webrtc=true"/>
+           -->
+           <action application="lua" data="xenVoiceCall.lua"/>
+     <!--action application="bridge" data="sofia/internal/${destination_number}@vabsys.com;fs_path=sip:52.73.47.94"/-->
+<!--     <action application="bridge" data="sofia/internal/${destination_number}@vabsys.com;fs_path=sip:52.73.47.94,sofia/internal/${destination_number}@vabsys.com;f
+         s_path=sip:52.86.229.130"/>
+-->
+         </condition>
+       </extension>
+      <extension name="fwd_extn">
+          <condition field="destination_number" expression=".*xen*">
+           <action application="set" data="fail_on_single_reject=true"/>
+            <action application="lua" data="xenVoiceCall.lua"/>
+          </condition>
+      </extension>
+    </context>
+<include>
