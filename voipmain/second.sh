@@ -90,7 +90,6 @@ make cd-moh-install
 echo -e "\e[2;32m Sounds installation was finished\e[0m" 
 make CFLAGS='-lasound' mod_flite
 make CFLAGS='-lasound' mod_flite-install
-field="${default_password}" expression="^12345$"
 sed -i  's/field="${default_password}" expression="^1234$"/field="${default_password}" expression="^12345$"/g'  /usr/voip/etc/freeswitch/dialplan/default.xml /usr/voip/etc/freeswitch/dialplan/default.xml
 sed -i  's/name="listen-ip" value="::"/name="listen-ip" value="127.0.0.1"/g'  /usr/voip/etc/freeswitch/autoload_configs/event_socket.conf.xml /usr/voip/etc/freeswitch/autoload_configs/event_socket.conf.xml
 sed -i  's/*.xml"/internal.xml"/g'  /usr/voip/etc/freeswitch/autoload_configs/sofia.conf.xml /usr/voip/etc/freeswitch/autoload_configs/sofia.conf.xml
